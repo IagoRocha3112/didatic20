@@ -1,0 +1,54 @@
+<ion-content padding>
+  <!-- FORM LOGIN -->
+  <form [formGroup]="formLogin" (ngSubmit)="onSubmit()">
+    <ion-grid class="fontForm">
+      <ion-row>
+        <ion-col>
+          <!-- LOGO OF APPLICATION -->
+          <div class="imageLogo">
+            <img  src="assets/logo.png">
+          </div>
+        </ion-col>
+      </ion-row>
+      <!-- BUTTONS OF FACEBOOK AND GOOGLE
+      <ion-row>
+        <ion-col> 
+          <ion-button id="bFacebook" type="submit">Facebook</ion-button><ion-button id="bGoogle" type="submit">Google</ion-button>
+        </ion-col>
+      </ion-row> -->
+      <!-- FORM WITH DATA BY USER -->
+      <ion-item>
+        <ion-label position="floating">Email</ion-label>
+        <ion-input formControlName="email" type="email" placeholder="Digite seu e-mail"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">Senha</ion-label>
+        <ion-input formControlName="password" type="password" placeholder="Digite sua senha"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label>Mantenha-me conectado.</ion-label>
+        <ion-checkbox slot="start"></ion-checkbox>
+      </ion-item>
+      <ion-row class="ion-text-center">
+        <ion-col>
+          <ion-button id="btnLogin" type="submit" expand="full" [disabled]="!formLogin.valid">Entrar</ion-button>
+        </ion-col>
+      </ion-row>
+      <ion-row class="ion-text-center ion-padding-vertical">
+        <ion-col>
+          <ion-button id="btnRegister" size="small" type="button" [routerLink]="'/register'">Cadastre-se</ion-button>
+        </ion-col>
+      </ion-row>
+
+      <ion-row class="ion-text-center">
+        <ion-col>
+          <!-- TEMOS QUE CRIAR UMA PÁGINA PRA ISSO E IMPLEMENTAR NA API -->
+          <button class="forgotPassword"  [routerLink]="'/login'">Esqueceu sua senha?</button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </form>
+  
+</ion-content>
+
+

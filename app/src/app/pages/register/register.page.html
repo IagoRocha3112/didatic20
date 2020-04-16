@@ -1,0 +1,44 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Registro</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+  <!-- FORM LOGIN -->
+  <form action="register.page.ts"> 
+    <ion-grid class="fontForm">
+        <!-- LOGO OF APPLICATION -->
+      <ion-row>
+        <ion-img class="imageLogo" position="floating" src="assets/logo.png"></ion-img>
+      </ion-row>
+      <ion-item>
+        <ion-label position="floating">Nome</ion-label>
+        <ion-input name="userName" type="text" placeholder="Digite seu nome" minlenght="2" required="required"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">Sobrenome</ion-label>
+        <ion-input name="userLastname" type="text" placeholder="Digite seu sobrenome" minlenght="2" required="required"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">E-mail</ion-label>
+        <ion-input name="userEmail" type="email" placeholder="Digite seu e-mail" required="required"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">Senha</ion-label>
+        <ion-input name="userPass" type="password" placeholder="Digite sua senha" min="6" required="required"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">Senha</ion-label>
+        <ion-input name="userPassconfirm" type="password" placeholder="Confirme sua senha" min="6" required="required"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-checkbox slot="start" required="required"></ion-checkbox>
+        <ion-label position="left">Aceita os nossos termos de uso?</ion-label>
+      </ion-item>
+      <ion-row>
+        <ion-button name="bCadastrar" type="submit" onclick="validaForm()" action="/register.page.ts">Cadastrar</ion-button><ion-button id="bBack" type="submit" onclick="window.location='login'">Voltar</ion-button>
+      </ion-row>
+    </ion-grid>
+  </form>
+</ion-content>
