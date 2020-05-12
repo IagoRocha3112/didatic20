@@ -1,4 +1,7 @@
+import { UsersService } from './../../services/users/users.service';
+import { CustomValidatorsService } from './../../helpers/custom-validators.service';
 import { Component, OnInit } from '@angular/core';
+import { FormGroup, FormBuilder, Validators, } from '@angular/forms';
 
 @Component({
   selector: 'app-register',
@@ -7,29 +10,33 @@ import { Component, OnInit } from '@angular/core';
 })
 export class RegisterPage implements OnInit {
 
-  constructor() { }
+  formRegister: FormGroup;
+
+  constructor(
+    private formBuilder: FormBuilder,
+    private users: UsersService
+  ) { }
 
   ngOnInit() {
+    this.buildForm();
   }
 
-}
-function validaForm(form) {
-  if(form.userName.value == "" || form.userName.value == null || form.userName.value.lenght < 3){
-    alert("Por favor, indique um nome!");
-    form.userName.focus();
-    return false;
+
+  buildForm() {
+    this.formRegister = this.formBuilder.group({
+      name: ['', [Validators.required, Validators.minLength(2)]],
+      lastname: ['', [Validators.required, Validators.minLength(2)]],
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', [Validators.required, Validators.minLength(6)]],
+      confirmedPassword: ['', [Validators.required, Validators.minLength(6)]],
+      acceptTermsOfUse: [false, [CustomValidatorsService.isChecked]]
+    },
+      { validator: CustomValidatorsService.equalValueValidator('password', 'confirmedPassword') },
+    );
   }
-  if(form.lastName.value == "" || form.lastName.value == null || form.lastName.value.lenght < 3){
-    alert("Por favor, indique um nome!");
-    form.lastName.focus();
-    return false;
+
+  onSubmit(){
+    this.users.create(this.formRegister.value).subscribe();
   }
-  if(form.userEmail.value.indexOf("@") == -1 ||
-     form.userEmail.value.indexOf(".") == -1 ||
-     form.userEmail.value == "" || 
-     form.userEmail.valeu == null){
-       alert("Por favor, indique um e-mail válido.");
-       form.userEmail.focus();
-       return false;
-  }
+
 }

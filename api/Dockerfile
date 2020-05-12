@@ -1,37 +1,15 @@
-############################################################
-# Dockerfile to build
-# Based on Ubuntu 18.04
-############################################################
+FROM python:3
 
-FROM ubuntu:18.04
+COPY . /app
+WORKDIR /app
+RUN apt-get update
+RUN pip install -r requirements.txt
 
-# UBUNTU UPGRADE
-RUN apt update
-RUN apt -y upgrade
-
-# GENERAL PACKAGES
-RUN apt install -y python-gi
-RUN apt install nano -y
-RUN apt install -y curl
-RUN apt -y install git
-RUN apt -y install wget
-
-# INSTALL PYTHON 3.7
-RUN apt install -y software-properties-common
-RUN add-apt-repository ppa:deadsnakes/ppa -y && apt update
-RUN apt install -y python3.7
-
-# PIP INSTALL
-RUN apt install -y python3-pip
-RUN pip3 install --upgrade pip
-
-# FLASK INSTALL
-RUN pip3 install flask
-#RUN pip3 install flask-sockets
-
-# CONTAINER CONFIGURATION
-WORKDIR /var/www/
-EXPOSE 5000
-EXPOSE 22
-
-
+# Service must listen to $PORT environment variable.
+# This default value facilitates local development.
+ENV PORT 8080
+# Run the web service on container startup. Here we use the gunicorn
+# webserver, with one worker process and 8 threads.
+# For environments with multiple CPU cores, increase the number of workers
+# to be equal to the cores available.
+CMD exec gunicorn --bind 0.0.0.0:$PORT --workers 1 --threads 8 run:app
